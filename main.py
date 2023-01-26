@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import random
+import pyperclip
 
 # --------------------------------- SAVE INPUTS ---------------------------------
 
@@ -48,6 +49,8 @@ def generate_pass():
 
     password_entry.delete(0, "end")
     password_entry.insert(0, password)
+    # Copy password to clipboard:
+    pyperclip.copy(password)
 
 
 # --------------------------------- UI SETUP ---------------------------------
