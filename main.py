@@ -48,7 +48,9 @@ def generate_pass():
     password = ""
     for char in password_list:
         password += char
-    print(password)
+
+    password_entry.delete(0, "end")
+    password_entry.insert(0, password)
 
 
 # --------------------------------- UI SETUP ---------------------------------
