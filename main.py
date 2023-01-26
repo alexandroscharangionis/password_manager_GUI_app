@@ -1,7 +1,18 @@
 from tkinter import *
 
-# --------------------------------- UI SETUP---------------------------------
+# --------------------------------- SAVE INPUTS ---------------------------------
 
+
+def save_input():
+    website = website_entry.get()
+    username = username_entry.get()
+    password = password_entry.get()
+    with open("data.txt", "a") as data:
+        data.write(
+            f"WEBSITE: {website} | USERNAME/EMAIL: {username} | PASSWORD: {password}\n")
+
+
+# --------------------------------- UI SETUP ---------------------------------
 window = Tk()
 window.title("Password Manager")
 window.config(padx=50, pady=50)
@@ -20,10 +31,11 @@ username_entry = Entry(width=35)
 password_entry = Entry(width=21)
 
 generate_pass_btn = Button(text="Generate", width=10)
-save_pass_btn = Button(text="Save password", width=33)
+save_pass_btn = Button(text="Save password", width=33, command=save_input)
 
 website_label.grid(column=0, row=1)
 website_entry.grid(column=1, columnspan=2, row=1)
+website_entry.focus()
 username_label.grid(column=0, row=2)
 username_entry.grid(column=1, columnspan=2, row=2)
 password_label.grid(column=0, row=3)
