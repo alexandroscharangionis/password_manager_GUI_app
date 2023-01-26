@@ -10,6 +10,10 @@ def save_input():
     with open("data.txt", "a") as data:
         data.write(
             f"WEBSITE: {website} | USERNAME/EMAIL: {username} | PASSWORD: {password}\n")
+    website_entry.delete(0, "end")
+    username_entry.delete(0, "end")
+    password_entry.delete(0, "end")
+    website_entry.focus()
 
 
 # --------------------------------- UI SETUP ---------------------------------
