@@ -1,1 +1,1 @@
-# password_manager_GUI_app
+# Password Manager app with GUI using tkinter
