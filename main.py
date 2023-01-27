@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import pyperclip
+import json
 
 # --------------------------------- SAVE INPUTS ---------------------------------
 
@@ -10,18 +11,37 @@ def save_input():
     website = website_entry.get()
     username = username_entry.get()
     password = password_entry.get()
+    new_data = {
+        website: {
+            "username": username,
+            "password": password
+        }
+    }
 
     if website == '' or username == '' or password == "":
         messagebox.showerror(title="Oops!",
                              message="Please don't leave any fields empty.")
     else:
 
-        is_ok = messagebox.askokcancel(
-            title=website, message=f"Details entered:\nUsername: {username}\nPassword: {password}\nAre you sure you want to save?")
-        if is_ok:
-            with open("data.txt", "a") as data:
-                data.write(
-                    f"WEBSITE: {website} | USERNAME/EMAIL: {username} | PASSWORD: {password}\n")
+        # is_ok = messagebox.askokcancel(
+        #     title=website, message=f"Details entered:\nUsername: {username}\nPassword: {password}\nAre you sure you want to save?")
+        # if is_ok:
+        try:
+            with open("data.json", "r") as data_file:
+                # Read old data:
+                data = json.load(data_file)
+        except FileNotFoundError:
+            with open("data.json", "w") as data_file:
+                # Save new data:
+                json.dump(new_data, data_file, indent=4)
+        else:
+            # Update old data with new data:
+            data.update(new_data)
+
+            with open("data.json", "w") as data_file:
+                # Save updated data:
+                json.dump(data, data_file, indent=4)
+        finally:
             website_entry.delete(0, "end")
             username_entry.delete(0, "end")
             password_entry.delete(0, "end")
