@@ -48,6 +48,24 @@ def save_input():
             website_entry.focus()
 
 
+# --------------------------------- SEARCH DATA ---------------------------------
+def find_password():
+    website = website_entry.get()
+    try:
+        with open("data.json") as data_file:
+            data = json.load(data_file)
+    except FileNotFoundError:
+        messagebox.showerror(
+            title="Error", message="You haven't saved any passwords yet.")
+    else:
+        if website in data:
+            messagebox.showinfo(
+                title=website, message=f"Username: {data[website]['username']}\nPassword: {data[website]['password']}")
+        else:
+            messagebox.showinfo(
+                title="Error", message=f"No info for '{website}'")
+
+
 # --------------------------------- GENERATE PASSWORD ---------------------------------
 
 def generate_pass():
@@ -93,7 +111,8 @@ password_entry = Entry(width=21)
 
 generate_pass_btn = Button(text="Generate", width=10, command=generate_pass)
 save_pass_btn = Button(text="Save password", width=33, command=save_input)
-search_btn = Button(text="Search", width=10)
+search_btn = Button(text="Search", width=10,
+                    command=find_password)
 
 website_label.grid(column=0, row=1)
 website_entry.grid(column=1, row=1)
